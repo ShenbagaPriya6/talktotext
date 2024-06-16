@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-from flask import Flask, request, jsonify, render_template
 from moviepy.editor import VideoFileClip
 import os
 import speech_recognition as sr
