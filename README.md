@@ -81,11 +81,11 @@ Special thanks to the developers and maintainers of the libraries and tools used
 ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](image/homepage.jpeg)
+![Home Page](image/homepage.jpg)
 
 ### Translated Text
-![Translated Text](image/loading.png)
+![Translated Text](image/loading.jpg)
 
-![Translated Text](image/translation.png)
+![Translated Text](image/translation.jpg)
 
 
