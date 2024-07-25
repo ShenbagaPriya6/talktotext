@@ -23,10 +23,10 @@
             gap: 20px;
             margin-bottom: 20px;
         }
-        #uploadBtn, #recordVideoInput {
+        #uploadBtn {
             display: none;
         }
-        .uploadLabel, .linkLabel, .recordLabel {
+        .uploadLabel, .linkLabel {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -36,7 +36,7 @@
             border-radius: 5px;
             text-decoration: none;
         }
-        .uploadLabel img, .linkLabel img, .recordLabel img {
+        .uploadLabel img, .linkLabel img {
             width: 100px;
             height: 100px;
         }
@@ -110,20 +110,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-        #recordModal {
-            display: none;
-        }
-        #recordButton, #stopButton {
-            background-color: red;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            margin: 10px auto;
-            display: block;
-            width: 150px;
-            border: none;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
@@ -167,43 +153,19 @@
             <button id="uploadLinkBtn" style="background-color: rgb(70, 124, 249); color: white; padding: 10px; border: none; border-radius: 5px;">Upload Link</button>
         </div>
     </div>
-    <div id="recordModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Record Video</h2>
-            <video id="recordingPreview" width="320" height="240" autoplay></video>
-            <br><br>
-            <button id="recordButton">Start Recording</button>
-            <button id="stopButton" style="display:none;">Stop Recording</button>
-        </div>
-    </div>
     <script>
         var modal = document.getElementById("myModal");
-        var recordModal = document.getElementById("recordModal");
         var btn = document.getElementById("openModal");
-        var recordBtn = document.getElementById("openRecordModal");
-        var span = document.getElementsByClassName("close");
+        var span = document.getElementsByClassName("close")[0];
         btn.onclick = function() {
             modal.style.display = "block";
         }
-        recordBtn.onclick = function() {
-            recordModal.style.display = "block";
-            startVideo();
-        }
-        span[0].onclick = function() {
+        span.onclick = function() {
             modal.style.display = "none";
-        }
-        span[1].onclick = function() {
-            recordModal.style.display = "none";
-            stopVideo();
         }
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-            }
-            if (event.target == recordModal) {
-                recordModal.style.display = "none";
-                stopVideo();
             }
         }
         document.getElementById('uploadBtn').addEventListener('change', async () => {
@@ -270,85 +232,15 @@
             }
         });
 
-        let mediaRecorder;
-        let recordedBlobs;
-
-        async function startVideo() {
-            const constraints = {
-                video: true
-            };
-            const stream = await navigator.mediaDevices.getUserMedia(constraints);
-            document.getElementById('recordingPreview').srcObject = stream;
-            const recordButton = document.getElementById('recordButton');
-            const stopButton = document.getElementById('stopButton');
-            recordButton.style.display = 'block';
-            stopButton.style.display = 'none';
-            recordButton.onclick = () => {
-                recordButton.style.display = 'none';
-                stopButton.style.display = 'block';
-                startRecording(stream);
-            };
-            stopButton.onclick = () => {
-                recordButton.style.display = 'block';
-                stopButton.style.display = 'none';
-                stopRecording();
-            };
-        }
-        function stopVideo() {
-            const video = document.getElementById('recordingPreview');
-            const stream = video.srcObject;
-            const tracks = stream.getTracks();
-
-            tracks.forEach(track => track.stop());
-            video.srcObject = null;
-        }
-        function startRecording(stream) {
-            recordedBlobs = [];
-            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-            mediaRecorder.ondataavailable = (event) => {
-                if (event.data && event.data.size > 0) {
-                    recordedBlobs.push(event.data);
-                }
-            };
-            mediaRecorder.start();
-        }
-        function stopRecording() {
-            mediaRecorder.stop();
-            const videoBlob = new Blob(recordedBlobs, { type: 'video/webm' });
-            const formData = new FormData();
-            formData.append('video', videoBlob, 'recorded_video.webm');
-            document.getElementById('loader').style.display = 'block';
-            fetch('/convert', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('englishContent').innerHTML = result.text;
-                document.getElementById('tamilContent').innerHTML = result.translated_text_ta;
-                document.getElementById('hindiContent').innerHTML = result.translated_text_hi;
-                document.getElementById('copyEnglish').style.display = 'inline-block';
-                document.getElementById('copyTamil').style.display = 'inline-block';
-                document.getElementById('copyHindi').style.display = 'inline-block';
-                recordModal.style.display = 'none'; 
-                stopVideo(); 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('loader').style.display = 'none';
-                alert('An error occurred while processing the recorded video.');
-                stopVideo(); 
-            });
-        }
         function copyText(elementId) {
-            const textToCopy = document.getElementById(elementId).textContent;
-            const tempInput = document.createElement('textarea');
-            tempInput.value = textToCopy;
-            document.body.appendChild(tempInput);
-            tempInput.select();
+            const textToCopy = document.getElementById(elementId).innerText;
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
             document.execCommand('copy');
-            document.body.removeChild(tempInput);
+            document.body.removeChild(textArea);
+            alert('Text copied to clipboard!');
         }
     </script>
 </body>
