@@ -32,7 +32,7 @@ The application supports various video formats and ensures efficient management 
 
 **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/video-to-text-translation.git
+   git clone https://github.com/ShenbagaPriya6/talktotext.git
    cd video-to-text-translation
    ```
 
