@@ -1,7 +1,4 @@
 # Video to Text and Translation Web Application
-
-![Logo](static/logo.png) <!-- Add your logo here -->
-
 ## 🎬 Overview
 
 Welcome to the Video to Text and Translation Web Application! This innovative web app allows you to:
@@ -20,8 +17,6 @@ The application supports various video formats and ensures efficient management 
 - 🎧 **Audio Extraction**: Extract audio from your videos seamlessly.
 - ✍️ **Transcription**: Convert audio to text accurately.
 - 🌏 **Translation**: Translate text into Tamil and Hindi.
-- 📦 **File Management**: Efficient handling of temporary files.
-- ⚙️ **Multi-format Support**: Compatible with various video formats.
 
 ## 🚀 Prerequisites
 
@@ -35,24 +30,13 @@ The application supports various video formats and ensures efficient management 
 
 ## 📥 Installation
 
-1. **Clone the Repository**:
+**Clone the Repository**:
    ```bash
    git clone https://github.com/your-username/video-to-text-translation.git
    cd video-to-text-translation
    ```
 
-2. **Create and Activate a Virtual Environment**:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-   ```
-
-3. **Install Required Packages**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Ensure FFmpeg is Installed**: Make sure FFmpeg is available in your system's PATH.
+ **Ensure FFmpeg is Installed**: Make sure FFmpeg is available in your system's PATH.
 
 ## 🛠️ Usage
 
@@ -69,7 +53,6 @@ The application supports various video formats and ensures efficient management 
 
 - `app.py`: Main application file with Flask routes and logic.
 - `templates/index.html`: HTML template for the web interface.
-- `requirements.txt`: List of required Python packages.
 - `static/`: Directory for static files (CSS, JS, images).
 - `videos/`: Directory for temporarily storing uploaded videos.
 - `audios/`: Directory for temporarily storing extracted audio files.
@@ -89,14 +72,6 @@ The application includes robust error handling for:
 - Errors during audio transcription
 - Errors during text translation
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to submit a pull request or open an issue to discuss any changes or improvements.
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
 ## 💖 Acknowledgements
 
 Special thanks to the developers and maintainers of the libraries and tools used in this project, including Flask, MoviePy, SpeechRecognition, googletrans, yt-dlp, and FFmpeg.
@@ -106,9 +81,9 @@ Special thanks to the developers and maintainers of the libraries and tools used
 ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](static/homepage.png)
+![Home Page](images/homepage.png)
 
 ### Translated Text
-![Translated Text](static/translated_text.png)
+![Translated Text](images/translated_text.png)
 
-Feel free to customize this README to match your project's specifics and requirements.
+
